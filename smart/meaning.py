@@ -14,6 +14,18 @@ def removeWordsDict(query):
     return ''.join(word)
     
 
+def newWordEntry(keyword):
+    import MySQLdb
+    try:
+        con = MySQLdb.connect(host="127.0.0.1",user="root",passwd="#srmseONserver",db="newWordDictionary")
+        cursor = con.cursor()
+        cursor.execute("INSERT INTO newWord(keyword,count) VALUES (%s,%s)""",%(keyword,0))
+        cursor.commit()
+        con.close()
+    except:
+        pass
+
+
 def getKeyword(query):
     query = query.strip()
     query = removeWordsDict(str(query))
@@ -31,4 +43,8 @@ def main(query):
     keyword = str(keyword).strip()
     cursor = db.dictionary.find({'keyword':str(keyword)})
     dicto = properDict(cursor)
-    return dicto
+    if dicto:
+    	return dicto
+    else:
+	newWordEntry(keyword)
+

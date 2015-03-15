@@ -4,6 +4,9 @@ def getanswer(msg,query,orig_query):
 		ans = train(query)
 	elif msg == "<weather status>":
 		ans = weather(query)
+        elif msg == "<cricinfo module>":
+                ans = cric_info(orig_query)
+
 	elif msg == "<stock status>":
 		ans = stock(query)
 	elif msg == "<mineral status>":
@@ -27,16 +30,46 @@ def getanswer(msg,query,orig_query):
         elif msg == "<theatre module>":
                 ans= theatre(orig_query)
 
+        elif msg == "<std module>":
+                ans= std(query)
+
+
 	#print "here"             
 	return ans
 
 
 
+def std(query):
+        ans = {}
+        import stdmodule as st
+        #print query
+	ans = st.stdcodemod(query)
+        #print ans
+        if ans:
+                return ans
+        else:
+                return [{}]
+
+
+
+
+
+def cric_info(query):
+        ans = {}
+        import cricinfo as cric
+        ans = cric.getQuery(query)
+        #print ans
+        if ans:
+                return ans
+        else:
+                return [{}]
+
+
 
 def theatre(query):
         ans = {}
-        import theatre as th
-        ans = th.thea_ret(query)
+        import theatreMain as th
+        ans = th.theatre(query)
 	#print ans
         if ans:
                 return ans
@@ -91,7 +124,9 @@ def location(query):
 def exam(query):
         ans="<NA>"
         import exam
+	
         ans = exam.main(query)
+	#print ans
         if ans :
            ans=[{"exam":ans}]
         return ans

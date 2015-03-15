@@ -53,7 +53,9 @@ def gspl(query):
 	msg = ""
 	meaning = corpus.meaning
 	theatre = corpus.theatre
+
 	loc= corpus.loc
+	cric_info = corpus.cric_info
 	t = corpus.t
 	w = corpus.w
 	s = corpus.s
@@ -63,6 +65,7 @@ def gspl(query):
         e = corpus.e
 	h = corpus.h
 	d = corpus.d
+	std = corpus.std
 	curr = corpus.curr
 	key = query
 	#new change
@@ -76,64 +79,77 @@ def gspl(query):
 	terms.append('rupee')
 	terms.append('rupees')
 	if msg == "":
+                for i in range(0,len(std)):
+                        if " "+std[i]+" " in " "+key+" ":
+                                msg = "<std module>"
+                                flag = 1
+                                break
+                for i in range(0,len(cric_info)):
+			#print [" "+key+" "] ,[" "+cric_info[i]+" "] 
+                        if " "+cric_info[i]+" " in " "+key+" ":
+                                msg = "<cricinfo module>"
+                                flag = 1
+                                break
+
+
 		for i in range(0,len(t)):
-			if t[i] in key:
+			if " "+t[i]+" " in " "+key+" ":
 				msg = "<train status>"
 				flag = 1
 				break
 		for i in range(0,len(w)):
-			if w[i] in key:
+			if " "+w[i]+" " in " "+key+" ":
 				msg = "<weather status>"
 				flag = 1
 				break
 		for i in range(0,len(s)):
-			if s[i] in key:
+			if " "+s[i]+" " in " "+key+" " :
 				msg = "<stock status>"
 				flag = 1
 				break
 		for i in range(0,len(m)):
-			if m[i] in key:
+			if " "+m[i]+" " in " "+key+" ":
 				msg = "<mineral status>"
 				flag = 1
 				break
 		for i in range(0,len(sp)):
-			if sp[i] in key:
+			if " "+sp[i]+" " in " "+key+" ":
 				msg = "<sports status>"
 				flag = 1
 				break
         	for i in range(0,len(r)):
-                	if r[i] in key:
+                	if " "+r[i]+" " in " "+key+" ":
                         	msg = "<movie review>"
                         	flag = 1
                         	break
        		for i in range(0,len(e)):
-                	if e[i] in key:
+                	if " " + e[i]+" " in " " +key+ " ":
                         	msg = "<exam status>"
                         	flag = 1
                         	break
  		for i in range(0,len(h)):
-                	if h[i] in key:
+                	if " "+h[i]+" " in " "+key+" ":
                         	msg = "<highway module>"
                         	flag = 1
                        		break
 		for i in range(0,len(d)):
-                	if d[i] in key:
+                	if " "+d[i]+" " in " "+key+" ":
                         	msg = "<differences module>"
                         	flag = 1
                         	break
 		for i in range(0,len(loc)):
-			if loc[i] in key:
+			if " "+loc[i]+" " in " "+key+" ":
 				msg = "<locationcentric module>"
 				flag=1
 				break
         	for i in range(0,len(meaning)):
-                	if meaning[i] in key:
+                	if " "+meaning[i]+" " in " "+key+" ":
                         	msg = "<meanings module>"
                         	flag = 1
                        		break
 
         	for i in range(0,len(theatre)):
-                	if theatre[i] in key:
+                	if " "+theatre[i]+" " in " "+key+" ":
                         	msg = "<theatre module>"
                         	flag = 1
                        		break

@@ -18,7 +18,7 @@ def main(query):
 		else:
 			sql = sql+"%"+query[i]+"%') LIMIT 1;"
 	
-        
+  #      print sql
 	cursor.execute(sql)
 	results = cursor.fetchone()
 	ans = results

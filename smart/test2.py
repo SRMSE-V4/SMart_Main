@@ -8,15 +8,19 @@ import cgi
 def get(query):
 	orig_query = query
 	query = gla.gaiml(query)
+	#print query
 	#print "#------------------------AIML------------------#"
 	#print query
 	ans = gla.compute(query[0])
+	#print ans
 	if ans=="<NA>":
 		for i in query:
 			query = gla.gdisc(i)
+			#print query
 			#print "#------------------------DISC------------------#"
 			#print "Rest :",query
-			msg = gla.gspl(query)
+			msg = gla.gspl(orig_query)
+			print [msg]
 			if msg!="":
 				#print "here"
 				#print "#------------------------SPL-------------------#"
@@ -45,6 +49,8 @@ def get(query):
 				#print "Values :",wtn
 				#print "Date :",date
 				#print "#---------------------RETRIV--------------------#"
+				#print query
+	
 				ans = retriv1.getanswer(query,symbol,wtn,date)
 				ans[0]={"general":ans[0]}
 				#print "Ans :",ans		

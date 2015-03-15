@@ -6,7 +6,7 @@ cur = db.cursor(m.cursors.DictCursor)
 def new_movies(query):
     query=query.lower().replace("movie","")
     key=[]
-    a=['director','producer','writer','screenplay','based on','editor','studio','distributor','country','budget','gross','comment']
+    a=['director','producer','writer','screenplay','based on','editor','studio','distributor','country','budget','gross','comment','review']
     if 'rating' in query or 'rate' in query or 'stars' in query or 'star' in query:
         query=query.replace('rating','').replace('rate','').replace('stars','').replace('star','')
         key.append('rating')
@@ -32,7 +32,7 @@ def new_movies(query):
     query=query.replace(' ','%')
     try:
         sql=""" select * from movies where name like '%"""+query+"""%' """
-        
+        #print sql
 	cur.execute(sql)
         res=cur.fetchone()
         
@@ -40,6 +40,7 @@ def new_movies(query):
         res=' '
     if res==None:
 	res=' '
-    res['listKey']=key 	
+    res['listKey']=key
+#    print [res] 	
     return [res]
 

@@ -1,7 +1,7 @@
 def main(query):
 	import re
 	disc = ["status","confirmation","confirm","statuses","yesterday","today","tomorrow","current","previous","late","fast",
-                "arrival","train","trains","from","to"]
+                "arrival","train","trains","from","to","and","between"]
 	x = query.split()
     	for i in range(0,len(disc)):
 		if disc[i] in x:
@@ -39,6 +39,7 @@ def query_num(num):
 	db = MySQLdb.connect("127.0.0.1","root","#srmseONserver","rig")
 	cur = db.cursor(MySQLdb.cursors.DictCursor)
 	sql="SELECT `trainname` AS `Train Name`,`text` As `Description`,`sstatus` AS `Status`,`lstatus` AS `Status Description` FROM `train` WHERE `trainnum`="+"%d"%num
+	#print sql
     	cur.execute(sql)
    	result=cur.fetchall()
     	return result
@@ -52,12 +53,15 @@ def query_name(name):
 	cur = db.cursor(MySQLdb.cursors.DictCursor)
 	name=name.split()
 	sql="SELECT `trainname` AS `Train Name`,`text` As `Description`,`sstatus` AS `Status`,`lstatus` AS `Status Description` FROM `train` WHERE (`text` LIKE '"
+
 	for i in range(0,len(name)):
 		if(i<len(name)-1):
 	        	sql = sql+"%"+name[i]
 		else:
 			sql = sql+"%"+name[i]+"%');"
         
-        cur.execute(sql)
+        #print sql
+	cur.execute(sql)
+	
     	result=cur.fetchall()
 	return result
