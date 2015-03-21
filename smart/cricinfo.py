@@ -6,11 +6,11 @@
 import re
 ans = [{"cricket-players":{"required":[]}}]
 
-disc = ["player","a","cricketer","cricket","how","many","team","who","is","the","in","which","number","no","number","of","player","taken","match","matches","details","players","about","took","did"]
+disc = ["stats","statistics","player","a","cricketer","cricket","how","many","team","who","is","the","in","which","number","no","number","of","player","taken","match","matches","details","players","about","took","did","cric"]
 bowling = ["wickets","wicket","bowling","economy","bowler"]
 batting = ["high score","scored","highest score","highestscore","highscore","score","runs","strike rate","strikerate","batting","batter","batsmen","hundreds","hundred","tons","half centuries","half century","halfcenturies","halfcentury"]
 teams = ["indian","india","ind","srilankan","srilanka","sl","sri lankan","sri lanka","south african","south africa","southafrican","southafrica","sa","new zealand","nz","newzealand","pakistan","pk","zimbabwe","bangladesh","bang","australian","australia","aus","kenyan","kenya"]
-getTeams = {"india":"india","indian":"india","ind":"india","srilanka":"sri lanka","srilankan":"sri lanka","sl":"sri lanka","south african":"south africa","south african":"south africa","southafrica":"south africa","sa":"south africa","southafrican":"south africa","new zealand":"new zealand","newzealand":"new zealand","nz":"new zealand","pakistan":"pakistan","pk":"pakistan","zimbabwe":"zimbabwe","aus":"australia","australia":"australia","kenyan":"kenya","kenya":"kenya"}
+getTeams = {"india":"india","indian":"india","ind":"india","srilanka":"sri lanka","srilankan":"sri lanka","sl":"sri lanka","south african":"south africa","south african":"south africa","southafrica":"south africa","sa":"south africa","southafrican":"south africa","new zealand":"new zealand","newzealand":"new zealand","nz":"new zealand","pakistan":"pakistan","pk":"pakistan","zimbabwe":"zimbabwe","aus":"australia","australia":"australia","australian":"australia","kenyan":"kenya","kenya":"kenya"}
 
 matchIdentifier = ["test","odis","odi","first class","tests"]
 team = ""
@@ -193,6 +193,7 @@ def getvalues():
     
     k=list(content)
     if k: 
+	k[0].pop("_id")
         return k[0]
     else:
         ans = [{}]
@@ -202,8 +203,8 @@ def getAggregated(minmax,types,getMain):
     global ans,query
     import pymongo
     import re
-    print types+"."+getMatch[matchType]+"."+getMain
-    print query,minmax,team
+    #print types+"."+getMatch[matchType]+"."+getMain
+    #print query,minmax,team
     if not query.strip():
         if minmax=="min":
             if team:
@@ -222,6 +223,7 @@ def getAggregated(minmax,types,getMain):
     value= list(value)
 
     if value:
+	value[0].pop("_id")
         return value[0]
     else:
         ans=[{}]

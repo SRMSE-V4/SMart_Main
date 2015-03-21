@@ -67,6 +67,7 @@ def gspl(query):
 	d = corpus.d
 	std = corpus.std
 	curr = corpus.curr
+	minister= corpus.minister
 	key = query
 	#new change
 	if len(query.split())==1:
@@ -84,6 +85,12 @@ def gspl(query):
                                 msg = "<std module>"
                                 flag = 1
                                 break
+                for i in range(0,len(minister)):
+                        if " "+minister[i]+" " in " "+key+" ":
+                                msg = "<minister module>"
+                                flag = 1
+                                break
+
                 for i in range(0,len(cric_info)):
 			#print [" "+key+" "] ,[" "+cric_info[i]+" "] 
                         if " "+cric_info[i]+" " in " "+key+" ":

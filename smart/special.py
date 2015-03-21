@@ -29,6 +29,8 @@ def getanswer(msg,query,orig_query):
 		ans= meanings(orig_query)  
         elif msg == "<theatre module>":
                 ans= theatre(orig_query)
+        elif msg == "<minister module>":
+                ans= minister(orig_query)
 
         elif msg == "<std module>":
                 ans= std(query)
@@ -58,6 +60,19 @@ def cric_info(query):
         ans = {}
         import cricinfo as cric
         ans = cric.getQuery(query)
+        #print ans
+        if ans:
+                return ans
+        else:
+                return [{}]
+
+
+
+def minister(query):
+        ans = {}
+        import ministers as mr
+        #print query
+        ans = mr.main(query)
         #print ans
         if ans:
                 return ans

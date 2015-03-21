@@ -18,10 +18,10 @@ def newWordEntry(keyword):
     import MySQLdb
     try:
         con = MySQLdb.connect(host="127.0.0.1",user="root",passwd="#srmseONserver",db="newWordDictionary")
-        cursor = con.cursor()
-        cursor.execute("INSERT INTO newWord(keyword,count) VALUES (%s,%s)""",%(keyword,0))
-        cursor.commit()
-        con.close()
+    	cursor = con.cursor()
+    	cursor.execute("INSERT INTO newWord(keyword,count) VALUES (%s,%s)",(keyword,"0"))
+    	con.commit()
+    	con.close()
     except:
         pass
 
@@ -43,8 +43,8 @@ def main(query):
     keyword = str(keyword).strip()
     cursor = db.dictionary.find({'keyword':str(keyword)})
     dicto = properDict(cursor)
-    if dicto:
+    if dicto['dict']:
     	return dicto
     else:
 	newWordEntry(keyword)
-
+	return dicto
