@@ -1,3 +1,5 @@
+
+bday=["birthday","bday"]
 disc = ["a","an","the","of","is","was","in","during","got","are","did","took","belongs","to","has","at","on","and"
         ,"or","me","celebrated","celebrate","regarding","into","came","action","existence","exist","rule","legal","become"
 	,"became","does","political","records","any","home","located","total","how","much","with","my","based","as","being"

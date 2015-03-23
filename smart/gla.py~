@@ -101,12 +101,6 @@ def gspl(query):
                                 msg = "<minister module>"
                                 flag = 1
                                 break
-		for i in range(0,len(sp)):
-			if " "+sp[i]+" " in " "+key+" ":
-				msg = "<sports status>"
-				flag = 1
-				break
-
 
                 for i in range(0,len(cric_info)):
 			#print [" "+key+" "] ,[" "+cric_info[i]+" "] 
@@ -134,6 +128,11 @@ def gspl(query):
 		for i in range(0,len(m)):
 			if " "+m[i]+" " in " "+key+" ":
 				msg = "<mineral status>"
+				flag = 1
+				break
+		for i in range(0,len(sp)):
+			if " "+sp[i]+" " in " "+key+" ":
+				msg = "<sports status>"
 				flag = 1
 				break
         	for i in range(0,len(r)):

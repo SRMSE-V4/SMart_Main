@@ -36,13 +36,11 @@ def getQuery(query_input):
 
     for bowl in bowling:
         if bowl in query:
-            #removeDisc(bowling)
             return getBowling()
             break
 
     for bat in batting:
         if bat in query:
-            #removeDisc(batting)
             return getBatting()
             break
         

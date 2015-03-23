@@ -35,6 +35,8 @@ def getanswer(msg,query,orig_query):
         elif msg == "<std module>":
                 ans= std(query)
 
+        elif msg == "<bday module>":
+                ans= [{"bday":[]}]
 
 	#print "here"             
 	return ans
