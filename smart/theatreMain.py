@@ -8,8 +8,10 @@
 #shows in theatre-name place-name
 #movie-name showtimes in place-name
 
-import MySQLdb
-db=MySQLdb.connect("localhost","root","#srmseONserver","rig")
+
+import MySQLdb,connection
+db= connection.connect("rig")
+
 cursor=db.cursor()
 def fetching(row):
 	return row[1],row[3],row[5],row[7],row[9],row[10],row[11],row[12],row[13],row[14],row[15],row[16],row[17]

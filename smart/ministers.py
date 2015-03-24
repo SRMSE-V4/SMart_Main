@@ -1,7 +1,7 @@
 import dateconvert
 import minmod
 import re
-dept=["broadcast","broadcasting","water","agriculture","finance","health","home","law","minority","overseas","panchayatiraj","panchayati raj","parliament","rail","science","shipping","road","transport","highway","tribal","water","defence","aviation","information","external","human resource development","education"]
+dept=["broadcast","broadcasting","water","agriculture","finance","health","home","law","minority","overseas","panchayatiraj","panchayati raj","parliament","rail","science","shipping","road","transport","highway","tribal","water","defence","aviation","information","external","human resource development","education","prime"]
 #query=raw_input("Enter Query:- ").lower()
 def main(query):
 	query=query.replace("-","/")

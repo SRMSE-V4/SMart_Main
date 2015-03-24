@@ -1,5 +1,7 @@
-import MySQLdb as m
-db=m.connect("127.0.0.1","root","#srmseONserver","rig")
+
+import MySQLdb,connection
+db= connection.connect("rig")
+
 cur = db.cursor(m.cursors.DictCursor)
 #all discarder must removed and sent as query query
 #the function will return 1 array first one is the key for highlighting the particular field asked by user and dictionary of the result

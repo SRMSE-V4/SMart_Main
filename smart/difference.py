@@ -1,6 +1,9 @@
 import json,MySQLdb,re
+
+import MySQLdb,connection
+db= connection.connect("rig")
+
 def difference(text):
-	db=MySQLdb.connect("localhost","root","#srmseONserver","rig")
 	try:
 		query=str(text)
 		regex="difference between (.+) and (.+)"

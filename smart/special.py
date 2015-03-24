@@ -7,6 +7,14 @@ def getanswer(msg,query,orig_query):
         elif msg == "<cricinfo module>":
                 ans = cric_info(orig_query)
 
+        elif msg == "<wiki module>":
+                ans = wiki_module(orig_query)
+
+        elif msg == "<bank module>":
+                ans = bank_module(orig_query)
+
+
+
 	elif msg == "<stock status>":
 		ans = stock(query)
 	elif msg == "<mineral status>":
@@ -56,7 +64,17 @@ def std(query):
 
 
 
+def wiki_module(query):
+	ans ={}
+	import wiki_ret as wk
+	ans = wk.findwiki(query,1)
+	return ans
 
+def bank_module(query):
+        ans ={}
+        import bank_main as bm
+        ans = bm.main(query)
+        return ans
 
 def cric_info(query):
         ans = {}

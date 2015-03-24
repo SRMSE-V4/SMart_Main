@@ -1,6 +1,6 @@
-import MySQLdb
 #import gla
-db = MySQLdb.connect("localhost","root","#srmseONserver","rig" )
+import MySQLdb,connection
+db= connection.connect("rig")
 cursor = db.cursor(MySQLdb.cursors.DictCursor)
 
 #what is the price of gold today/current

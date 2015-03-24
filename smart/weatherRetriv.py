@@ -1,6 +1,7 @@
-import MySQLdb
 import json
-db=MySQLdb.connect('127.0.0.1','root','#srmseONserver','rig')
+import MySQLdb,connection
+db= connection.connect("rig")
+
 cursor=db.cursor(MySQLdb.cursors.DictCursor)
 import re,time
 import string

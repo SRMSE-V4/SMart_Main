@@ -35,8 +35,8 @@ def filter_result(result,query):
 
 def query_num(num):
 	result = ""
-	import MySQLdb
-	db = MySQLdb.connect("127.0.0.1","root","#srmseONserver","rig")
+	import MySQLdb,connection
+	db= connection.connect("rig")
 	cur = db.cursor(MySQLdb.cursors.DictCursor)
 	sql="SELECT `trainname` AS `Train Name`,`text` As `Description`,`sstatus` AS `Status`,`lstatus` AS `Status Description` FROM `train` WHERE `trainnum`="+"%d"%num
 	#print sql
@@ -48,8 +48,10 @@ def query_num(num):
 
 def query_name(name):
 	result = ""
-	import MySQLdb
-	db = MySQLdb.connect("127.0.0.1","root","#srmseONserver","rig")
+
+        import MySQLdb,connection
+        db= connection.connect("rig")
+
 	cur = db.cursor(MySQLdb.cursors.DictCursor)
 	name=name.split()
 	sql="SELECT `trainname` AS `Train Name`,`text` As `Description`,`sstatus` AS `Status`,`lstatus` AS `Status Description` FROM `train` WHERE (`text` LIKE '"

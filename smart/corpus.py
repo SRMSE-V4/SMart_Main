@@ -10,6 +10,7 @@ disc = ["a","an","the","of","is","was","in","during","got","are","did","took","b
         ,"shown","hit","come","happen","strike","earthquake","related","relate","relates","relating","called","tell","known"
 	, "famous","famously","prize","national","most","read","both","record","recorded","live","will","goes","stretch","run","over",
 	  "pass","through","number","numbers","where","from","performed","won","olympics","university","talks","were","when","which"]
+bank = ["bank"]
 minister = ["minister","ministers"]
 theatre = ["theatre","theater","showtime","shows","showing","theaters","theatres","timing"]
 meaning = ["means","define","definition","meaning","mean","meant"]

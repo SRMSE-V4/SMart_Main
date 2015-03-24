@@ -7,6 +7,8 @@ import wordtonum
 import datetime
 import re
 from dateutil.relativedelta import relativedelta
+client = pymongo.MongoClient()
+checkDicti = {"name":"<wiki module>","site":"<website module>"}
 
 def gaiml(query):
 	k = aiml.Kernel()
@@ -53,7 +55,7 @@ def gspl(query):
 	msg = ""
 	# to delete
 	bday = corpus.bday
-
+	bank = corpus.bank
 	meaning = corpus.meaning
 	theatre = corpus.theatre
 	loc= corpus.loc
@@ -72,8 +74,10 @@ def gspl(query):
 	minister= corpus.minister
 	key = query
 	#new change
-	if len(query.split())==1 and query!="bday" and query!="birthday":
-		msg= "<meanings module>"
+	msg= checkModules(query)
+	if not msg:
+		if len(query.split())==1 and query!="bday" and query!="birthday":
+			msg= "<meanings module>"
 	
 	
 	#key = query.split()
@@ -101,6 +105,15 @@ def gspl(query):
                                 msg = "<minister module>"
                                 flag = 1
                                 break
+
+                for i in range(0,len(bank)):
+                        if " "+bank[i]+" " in " "+key+" ":
+                                msg = "<bank module>"
+                                flag = 1
+                                break
+
+
+
 		for i in range(0,len(sp)):
 			if " "+sp[i]+" " in " "+key+" ":
 				msg = "<sports status>"
@@ -184,13 +197,28 @@ def gspl(query):
 	#print msg
 	return msg
 
+
+def checkModules(query):
+	mdb = client['wikismart']
+
+	result = mdb.infname.find({"name":{"$regex":query,"$options":"i"}})
+	result = list(result)
+	if list(result):
+		getType = list(result)[0]
+		msg= checkDicti[getType["type"]]
+		return msg
+	else:
+		return ""
+	
+	
+	
 def wordmatrix(query):
 	cols = []
 	vals = []
 	match = []
 	temp = []
 	rem = []
-	client = pymongo.MongoClient()
+	#client = pymongo.MongoClient()
 	mdb = client['kb']
 	wg = mdb['wordgraph']
 	query = query.split()		

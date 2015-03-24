@@ -15,9 +15,9 @@
 import re
 import MySQLdb
 def thea_ret(query):
-	db=MySQLdb.connect("localhost","root","#srmseONserver","rig")
-	cursor=db.cursor()
-
+        import MySQLdb,connection
+        db= connection.connect("rig")
+	cursor=db.cursor(MySQLdb.cursors.DictCursor)
 	def display(flag):
 		c=[]
 		#print "in display"
