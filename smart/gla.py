@@ -54,6 +54,8 @@ def gspl(query):
 	result = ""
 	msg = ""
 	# to delete
+	festiv = corpus.festiv
+	hcourt = corpus.high_court
 	bday = corpus.bday
 	bank = corpus.bank
 	meaning = corpus.meaning
@@ -74,11 +76,10 @@ def gspl(query):
 	minister= corpus.minister
 	key = query
 	#new change
-	msg= checkModules(query)
-	if not msg:
-		if len(query.split())==1 and query!="bday" and query!="birthday":
-			msg= "<meanings module>"
-	
+#	msg= checkModules(query)
+#	if not msg:
+#		if len(query.split())==1 and query!="bday" and query!="birthday":
+#			msg= "<meanings module>"
 	
 	#key = query.split()
 	#key = list(set(key))
@@ -86,11 +87,23 @@ def gspl(query):
 	terms.append('rupee')
 	terms.append('rupees')
 	if msg == "":
-
                 for i in range(0,len(bday)):
                         if " "+bday[i]+" " in " "+key+" ":
                                 msg = "<bday module>"
-				print msg
+                                flag = 1
+                                break
+
+
+                for i in range(0,len(hcourt)):
+                        if " "+hcourt[i]+" " in " "+key+" ":
+                                msg = "<highcourt module>"
+                                flag = 1
+                                break
+
+
+                for i in range(0,len(festiv)):
+                        if " "+festiv[i]+" " in " "+key+" ":
+                                msg = "<festival module>"
                                 flag = 1
                                 break
 
@@ -146,7 +159,9 @@ def gspl(query):
 				break
 		for i in range(0,len(m)):
 			if " "+m[i]+" " in " "+key+" ":
-				msg = "<mineral status>"
+				print "there"
+				msg= "<mineral status>"
+				print "hi"+msg
 				flag = 1
 				break
         	for i in range(0,len(r)):
@@ -186,23 +201,33 @@ def gspl(query):
                         	flag = 1
                        		break
 
-
-
 		for i in range(0,len(key)):
 			if key[i] in terms:
 				count = count+1
 		if count>=2:
 			msg = "<currency module>"
 			flag = 1
-	#print msg
+	
+	#a= [msg]
+	#a.remove("")
+
+	if len(msg)==0:
+		msg= checkModules(query)
+        if not msg:
+                if len(query.split())==1 and query!="bday" and query!="birthday":
+                        msg= "<meanings module>"
+
+	#print [msg]
 	return msg
 
 
 def checkModules(query):
 	mdb = client['wikismart']
 
-	result = mdb.infname.find({"name":{"$regex":query,"$options":"i"}})
+	result = mdb.infname3.find({"name":query})
 	result = list(result)
+
+	#print result
 	if list(result):
 		getType = list(result)[0]
 		msg= checkDicti[getType["type"]]

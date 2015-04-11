@@ -20,6 +20,7 @@ def get(query):
 			#print "#------------------------DISC------------------#"
 			#print "Rest :",query
 			msg = gla.gspl(orig_query)
+		
 			#print [msg]
 			if msg!="":
 				#print "here"

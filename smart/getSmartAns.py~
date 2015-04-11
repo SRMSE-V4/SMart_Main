@@ -31,5 +31,5 @@ if f!="##123##":
        else:
           print "{}"
     except Exception as x:
-       #print x
+       print x
        print "{}"

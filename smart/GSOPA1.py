@@ -1,6 +1,6 @@
-import MySQLdb
 #import gla
-db = MySQLdb.connect("localhost","root","#srmseONserver","rig" )
+import MySQLdb,connection
+db= connection.connect("rig")
 cursor = db.cursor(MySQLdb.cursors.DictCursor)
 
 #what is the price of gold today/current
@@ -15,7 +15,7 @@ def main(query):
     gld = ["Gold","Au","Gld","Sona","gold","sona"]
     slv = ["Silver","silver","Ag","Sil","sil","Chandi","chandi"]
     oil = ["crude oil","Crude oil","Crude Oil","oil","Oil","Crude Oil"]
-    pet = ["Petrol","Gasoline","petrol","gasoline","petrolium","Petrolium","petroleum","Petroleum"]
+    pet = ["Petrol","Gasoline","petrol","gasoline"]
     cop = ["copper","Copper","COPPER"]
     alm = ["aluminium","Aluminium","ALUMINIUM"]
     led = ["lead","LEAD","Lead"]
@@ -124,13 +124,12 @@ def today(nme):
 
 def tod(nme):
     result = ""
-    sql="SELECT `name`, `place`,`rate`FROM `petrol` WHERE `place` like '%"+nme+"%';"
+    sql="SELECT `place`,`rate`FROM `petrol` WHERE `place` like '%"+nme+"%';"
     cursor.execute(sql)
     result=cursor.fetchall()
     #print result
     return result
 
 #, `Percentage_Change`, `High`, `Low`, `Open`, `Close`, `Net_change`
-
 
 

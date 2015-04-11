@@ -1,0 +1,6 @@
+import MySQLdb
+
+def connect(dbname):
+	db = MySQLdb.connect('127.0.0.1','root','#srmseONserver',dbname)
+	return db
+

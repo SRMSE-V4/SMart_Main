@@ -158,6 +158,7 @@ def differences(query):
 	import difference as dif
 	ans = "<NA>"
 	getAns= dif.difference(query)
+	print getAns
 	if getAns: 
 		ans = [{"differences":getAns}]
 	else:

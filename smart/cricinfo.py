@@ -6,7 +6,7 @@
 import re
 ans = [{"cricket-players":{"required":[]}}]
 
-disc = ["stats","statistics","player","a","cricketer","cricket","how","many","team","who","is","the","in","which","number","no","number","of","player","taken","match","matches","details","players","about","took","did","cric"]
+disc = ["with","stats","statistics","player","a","cricketer","cricket","how","many","team","who","is","the","in","which","number","no","number","of","player","taken","match","matches","details","players","about","took","did","cric","by"]
 bowling = ["wickets","wicket","bowling","economy","bowler"]
 batting = ["high score","scored","highest score","highestscore","highscore","score","runs","strike rate","strikerate","batting","batter","batsmen","hundreds","hundred","tons","half centuries","half century","halfcenturies","halfcentury"]
 teams = ["indian","india","ind","srilankan","srilanka","sl","sri lankan","sri lanka","south african","south africa","southafrican","southafrica","sa","new zealand","nz","newzealand","pakistan","pk","zimbabwe","bangladesh","bang","australian","australia","aus","kenyan","kenya"]
@@ -158,9 +158,9 @@ def getMatchIdentifier():
 def getMinMax():
     global query
     types =""
-    maximum = ["maximum","max","most","highest"]
+    maximum = ["maximum","max","most","best"]
 
-    minimum = ["minimum","min","lowest","least"]
+    minimum = ["minimum","min","lowest","least","worst"]
 
     for maxs in maximum:
         if maxs in query:
@@ -201,8 +201,8 @@ def getAggregated(minmax,types,getMain):
     global ans,query
     import pymongo
     import re
-    #print types+"."+getMatch[matchType]+"."+getMain
-    #print query,minmax,team
+#    print types+"."+getMatch[matchType]+"."+getMain
+#    print query,minmax,team
     if not query.strip():
         if minmax=="min":
             if team:

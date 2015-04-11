@@ -2,7 +2,6 @@ import json,MySQLdb,re
 
 import MySQLdb,connection
 db= connection.connect("rig")
-
 def difference(text):
 	try:
 		query=str(text)
@@ -17,6 +16,7 @@ def difference(text):
 		qresult["description"]=filter(lambda x:ord(x)>31 and ord(x)<128,qresult["description"]).replace("[","").replace("]","")
 		db.close()
 		if qresult is None:
+			print "none"
 			return {}
 		return qresult
 	except Exception as e:

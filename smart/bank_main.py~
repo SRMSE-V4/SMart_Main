@@ -8,9 +8,9 @@ def main(query):
 	for i in query:
 		query = bankgla.gdisc(i)
 	query,fields = bankgla.wordmatrix(query,orig_query)
+	
 	if(len(query)>1):
 		a=banks_retrieval.ret(query,fields)
-                #print a
 		if a:
 			ans=[{"bank":a}]
 		else:

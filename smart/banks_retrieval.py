@@ -20,5 +20,5 @@ def ret(bank,key):
 		ans["required"]=samplekey
 		ans["main-ans"]=data
 	except:
-		ans=[{}]
+		ans={}
 	return ans
