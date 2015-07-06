@@ -1,6 +1,6 @@
 import MySQLdb
 
-db=MySQLdb.connect('127.0.0.1','root','#srmseONserver','rig')
+db=MySQLdb.connect('127.0.0.1','root','#srmseONserver1','rig')
 import re
 import string
 import datetime

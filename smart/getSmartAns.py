@@ -1,10 +1,13 @@
 #!/usr/bin/python
 import cgi,cgitb,json
+import decryptCSRF as csrf
 form = cgi.FieldStorage() 
-print "Content-type:text/html\r\n\r"
+print "Content-type:text/javascript\r\n\r"
+res={}
+token=form.getvalue('authenticity_token','###123###')
 f = form.getvalue("q","##123##") #Gets input from the form
 import test2
-if f!="##123##":
+if f!="##123##" and token!="###123##" and csrf.decrypt(token):
     try:
        result = test2.get(f) #Gets result out of the smart answer module
        #print result
@@ -31,5 +34,9 @@ if f!="##123##":
        else:
           print "{}"
     except Exception as x:
-       #print x
-       print "{}"
+    	a={}
+    	a["wiki"]=[]
+    	print json.dumps(a)
+else:
+   res["error"]="Unauthorized Access"
+   print json.dumps(res)

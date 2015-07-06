@@ -1,6 +1,7 @@
 import MySQLdb
 #import gla
-db = MySQLdb.connect("localhost","root","#srmseONserver","rig" )
+import connection
+db = connection.connect("rig")
 cursor = db.cursor(MySQLdb.cursors.DictCursor)
 
 #what is the price of gold today/current
@@ -11,6 +12,7 @@ cursor = db.cursor(MySQLdb.cursors.DictCursor)
 
 def main(query):
     flag=0
+    #print query
     result = ""
     gld = ["Gold","Au","Gld","Sona","gold","sona"]
     slv = ["Silver","silver","Ag","Sil","sil","Chandi","chandi"]
@@ -62,10 +64,11 @@ def main(query):
             for j in range(0,len(key)):
 		#print j
                 if key[j].capitalize() in arr:
+                        
             		result3=tod(key[j])
 		        return result3
 			break
-		else:
+		elif key[j] not in pet:
 			result3=tod("Delhi")
 			return result3
 			break 
@@ -124,7 +127,7 @@ def today(nme):
 
 def tod(nme):
     result = ""
-    sql="SELECT `name`, `place`,`rate`FROM `petrol` WHERE `place` like '%"+nme+"%';"
+    sql="SELECT `name`, `place`,`value` FROM `petrol` WHERE `place` like '%"+nme+"%';"
     cursor.execute(sql)
     result=cursor.fetchall()
     #print result

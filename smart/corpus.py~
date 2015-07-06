@@ -1,6 +1,5 @@
-tennis=["tennis"]
 discography=["discography","albums","album"]
-recipe=["recipes","recipe","cook"]
+recipe=["recipes","recipe"]
 flight = ["flights","flight"]
 bday=["birthday","bday"]
 disc = ["a","an","the","of","is","was","in","during","got","are","did","took","belongs","to","has","at","on","and"

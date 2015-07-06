@@ -34,7 +34,7 @@ def queryRetriv(query):
     keys=query.lower().split() #split the query obtained
  #   print keys
     get=db.newIndex2.find({"keyword":{"$in":keys}}) # select fields corresponding to the keywords from 'index' table
-
+    
     sendDict={}
     get=list(get)
   #  print get
@@ -42,99 +42,101 @@ def queryRetriv(query):
     #print get
     # this is to make the fetched details proper
     sendList=[]
-    for ge in store:
-        ge.pop('_id')
-        keyword=ge["keyword"]
-        sendList.append(str(keyword))
-        lis=ge.keys()     
-        lis.pop(lis.index("keyword"))
-        sendDict[keyword]=lis
+    if (len(keys)==len(store)):
+        for ge in store:
+            ge.pop('_id')
+            keyword=ge["keyword"]
+            sendList.append(str(keyword))
+            lis=ge.keys()     
+            lis.pop(lis.index("keyword"))
+            sendDict[keyword]=lis
 
-   # print sendDict
-    keyword=[]
-    fieldKeyword=[]
-    
-    if not(set(keys)-set(sendList)) and sendDict:
+       # print sendDict
+        keyword=[]
+        fieldKeyword=[]
         
-        data=getIntersection(sendDict) # this is to get collections to which the given keywords are common 
-        #if not data:
-        #    data=[most_common(sendDict.values())]
-        #print data
-        anotherDict={}
-        for key in keys:
+        if not(set(keys)-set(sendList)) and sendDict:
+            
+            data=getIntersection(sendDict) # this is to get collections to which the given keywords are common 
+            #if not data:
+            #    data=[most_common(sendDict.values())]
+            #print data
+            anotherDict={}
+            for key in keys:
 
-            for dat in data:
-                
-                for st in store:
-                  
-                    if st["keyword"]==key:
-                        if not anotherDict.has_key(dat):
-                            anotherDict[dat]={}
-                            
-                        if st.has_key(dat):
-                            if type(st[dat]) is dict:
+                for dat in data:
+                    
+                    for st in store:
+                      
+                        if st["keyword"]==key:
+                            if not anotherDict.has_key(dat):
+                                anotherDict[dat]={}
+                                
+                            if st.has_key(dat):
+                                if type(st[dat]) is dict:
 
-                                #types contains type of all the values of a dictionary       
-                                types=map(type,st[dat].values())
+                                    #types contains type of all the values of a dictionary       
+                                    types=map(type,st[dat].values())
 
-                                if st[dat].keys()==1:
-                                    
-                                    if type(st[dat][st[dat].keys()[0]]) is dict:
-                                        dt={st[dat].keys()[0]:st[dat][st[dat].keys()[0]]}
+                                    if st[dat].keys()==1:
                                         
+                                        if type(st[dat][st[dat].keys()[0]]) is dict:
+                                            dt={st[dat].keys()[0]:st[dat][st[dat].keys()[0]]}
+                                            
+                                        else:
+                                            dt={key:st[dat]}
+
+                                    elif dict in types:
+                                        kys=sorted(st[dat].keys())
+                                        for k in kys:
+                                            if type(st[dat][k]) is dict:
+                                                dt={k:st[dat][k]}
+                                                break
                                     else:
                                         dt={key:st[dat]}
 
-                                elif dict in types:
-                                    kys=sorted(st[dat].keys())
-                                    for k in kys:
-                                        if type(st[dat][k]) is dict:
-                                            dt={k:st[dat][k]}
-                                            break
                                 else:
                                     dt={key:st[dat]}
-
-                            else:
-                                dt={key:st[dat]}
-                            
-                            anotherDict[dat].update(dt)
-
-                            if str(st[dat])=="field":
-                                fieldKeyword.append(key)
-                                if not anotherDict[dat].has_key("priority"):
-                                    anotherDict[dat]["priority"]=10
-                                else:
-                                    anotherDict[dat]["priority"]+=10
-                            elif str(st[dat])=="categories":
-                                fieldKeyword.append(key)
-                                if not anotherDict[dat].has_key("priority"):
-                                    anotherDict[dat]["priority"]=30
-                                else:
-                                    anotherDict[dat]["priority"]+=30
                                 
-                            else:
-                                if not anotherDict[dat].has_key("priority"):
-                                    anotherDict[dat]["priority"]=1
+                                anotherDict[dat].update(dt)
+
+                                if str(st[dat])=="field":
+                                    fieldKeyword.append(key)
+                                    if not anotherDict[dat].has_key("priority"):
+                                        anotherDict[dat]["priority"]=10
+                                    else:
+                                        anotherDict[dat]["priority"]+=10
+                                elif str(st[dat])=="categories":
+                                    fieldKeyword.append(key)
+                                    if not anotherDict[dat].has_key("priority"):
+                                        anotherDict[dat]["priority"]=30
+                                    else:
+                                        anotherDict[dat]["priority"]+=30
+                                    
                                 else:
-                                    anotherDict[dat]["priority"]+=1
+                                    if not anotherDict[dat].has_key("priority"):
+                                        anotherDict[dat]["priority"]=1
+                                    else:
+                                        anotherDict[dat]["priority"]+=1
 
-                                keyword.append(key)
+                                    keyword.append(key)
 
-       # print sendDict
-       # print "\n\n"                    
-       # print anotherDict
-       # print "\n\n"
-        
-        return retrieveResults(anotherDict,keyword,fieldKeyword,keys)
+           # print sendDict
+           # print "\n\n"                    
+           # print anotherDict
+           # print "\n\n"
             
+            return retrieveResults(anotherDict,keyword,fieldKeyword,keys)
+    else:
+        return {}
 
 def getIntersection(sendDict):
     k=[]
-
+#    print sendDict.values()
     k=map(set,sendDict.values())
 
     inter=set(k[0]).intersection(*k)
-
+#    print inter
     return list(inter)
     
 def most_common(lst1):
@@ -262,9 +264,9 @@ def printResult(collection,returnresult,sodict,keys,keywords,fieldKeywords):
 #    print mainQuery
     collection=mainQuery.keys()[0]
     if mainQuery[collection]:
-    	ans = list(db[collection].find(mainQuery[collection]))
+        ans = list(db[collection].find(mainQuery[collection]))
     else:
-	ans={}
+        ans={}
    # print ans
     return ans
 

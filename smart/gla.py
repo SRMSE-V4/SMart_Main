@@ -1,3 +1,4 @@
+
 import corpus
 import pymongo
 import aiml
@@ -54,6 +55,10 @@ def gspl(query):
 	result = ""
 	msg = ""
 	# to delete
+	discography=corpus.discography
+	recipe=corpus.recipe
+	flight = corpus.flight
+	tennis=corpus.tennis
 	festiv = corpus.festiv
 	hcourt = corpus.high_court
 	bday = corpus.bday
@@ -99,6 +104,27 @@ def gspl(query):
                                 msg = "<highcourt module>"
                                 flag = 1
                                 break
+                for i in range(0,len(discography)):
+                        if " "+discography[i]+" " in " "+key+" ":
+                                msg = "<discography module>"
+                                flag = 1
+                                break
+		for i in range(0,len(tennis)):
+			if " "+tennis[i]+" " in " "+key+" ":
+				msg = "<tennis module>"
+				flag = 1
+				break
+                for i in range(0,len(flight)):
+                        if " "+flight[i]+" " in " "+key+" ":
+                                msg = "<flight module>"
+                                flag = 1
+                                break
+                for i in range(0,len(recipe)):
+                        if " "+recipe[i]+" " in " "+key+" ":
+                                msg = "<recipe module>"
+                                flag = 1
+                                break
+
 
 
                 for i in range(0,len(festiv)):
@@ -159,9 +185,7 @@ def gspl(query):
 				break
 		for i in range(0,len(m)):
 			if " "+m[i]+" " in " "+key+" ":
-				print "there"
 				msg= "<mineral status>"
-				print "hi"+msg
 				flag = 1
 				break
         	for i in range(0,len(r)):
@@ -222,16 +246,21 @@ def gspl(query):
 
 
 def checkModules(query):
-	mdb = client['wikismart']
+	if len(query) >3:
+		mdb = client['wikismart']
 
-	result = mdb.infname3.find({"name":query})
-	result = list(result)
-
+		result = mdb.infname3.find({"name":query})
+		result = list(result)
+		#print result
 	#print result
-	if list(result):
-		getType = list(result)[0]
-		msg= checkDicti[getType["type"]]
-		return msg
+	#print result
+		if list(result):
+			getType = list(result)[0]
+			msg= checkDicti[getType["type"]]
+			return msg
+		else :
+			return ""
+
 	else:
 		return ""
 	

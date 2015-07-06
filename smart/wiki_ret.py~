@@ -1,0 +1,6 @@
+def findwiki(query,no):
+	return [{"wiki":{}}]
+#query=raw_input("Enter:- ").lower()
+#query1=query
+#no=len(query1.split(" "))
+#findwiki(query,no)

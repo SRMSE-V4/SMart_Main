@@ -17,7 +17,7 @@ def removeWordsDict(query):
 def newWordEntry(keyword):
     import MySQLdb
     try:
-        con = MySQLdb.connect(host="127.0.0.1",user="root",passwd="#srmseONserver",db="newWordDictionary")
+        con = MySQLdb.connect(host="127.0.0.1",user="root",passwd="#srmseONserver1",db="rig")
     	cursor = con.cursor()
     	cursor.execute("INSERT INTO newWord(keyword,count) VALUES (%s,%s)",(keyword,"0"))
     	con.commit()

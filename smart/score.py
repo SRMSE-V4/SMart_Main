@@ -2,7 +2,7 @@ import MySQLdb
 import urllib2
 import re
 import string 
-db=MySQLdb.connect('127.0.0.1','root','#srmseONserver','rig')
+db=MySQLdb.connect('127.0.0.1','root','#srmseONserver1','rig')
 cursor=db.cursor()
 
 def removePandS(content):

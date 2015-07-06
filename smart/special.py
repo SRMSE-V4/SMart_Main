@@ -8,6 +8,15 @@ def getanswer(msg,query,orig_query):
                 ans = cric_info(orig_query)
         elif msg == "<festival module>":
                 ans = festival(orig_query)
+        elif msg == "<tennis module>":
+                ans = tennis(orig_query)
+       
+	elif msg == "<flight module>":
+                ans = flight(orig_query)
+        elif msg == "<recipe module>":
+                ans = recipe(orig_query)
+	elif msg=="<discography module>":
+		ans=discography(orig_query)
 
         elif msg == "<wiki module>":
                 ans = wiki_module(orig_query)
@@ -15,8 +24,8 @@ def getanswer(msg,query,orig_query):
         elif msg == "<bank module>":
                 ans = bank_module(orig_query)
 
-	elif msg == "<website module>":
-		ans = get_website(orig_query)
+	#elif msg == "<website module>":
+	#	ans = get_website(orig_query)
 
 	elif msg == "<stock status>":
 		ans = stock(query)
@@ -61,16 +70,34 @@ def festival(query):
 	import festival_module as fm
 	ans=fm.main(query)
 	return ans
+
+def flight(query):
+        import flightmain as fm
+        ans=fm.main(query)
+        return ans
+def tennis(query):
+	import tennismain as tm
+	ans=tm.main(query)
+	return ans
+def recipe(query):
+        import recipemain as rem
+        ans=rem.main(query)
+        return ans
+
+def discography(query):
+        import discoret as dt
+        ans=dt.main(query,0)
+        return ans
 def highcourt(query):
 	import highcourttest as hc
 	ans = hc.main(query)
 	return ans
 
 
-def get_website(query):
-	import toptest as tst
-	ans = tst.main(query)
-	return ans
+#def get_website(query):
+#	import toptest as tst
+#	ans = tst.main(query)
+#	return ans
 
 def std(query):
         ans = {}
@@ -87,9 +114,7 @@ def std(query):
 
 def wiki_module(query):
 	ans ={}
-	import wiki_ret as wk
-	ans = wk.findwiki(query,1)
-	return ans
+	return [{"wiki":{}}] #flag to indicate no smart ans show infobox
 
 def bank_module(query):
         ans ={}
@@ -233,8 +258,8 @@ def stock(query):
 def mineral(query):
 	import GSOPA as gp
 	ans = list(gp.main(query))
-	print "here"
-	print ans
+	#print "here"
+	#print ans
 	if ans:
 		ans[0]={"minerals":ans[0]}
 	return ans

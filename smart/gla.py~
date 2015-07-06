@@ -1,3 +1,4 @@
+
 import corpus
 import pymongo
 import aiml
@@ -54,6 +55,11 @@ def gspl(query):
 	result = ""
 	msg = ""
 	# to delete
+	discography=corpus.discography
+	recipe=corpus.recipe
+	flight = corpus.flight
+	festiv = corpus.festiv
+	hcourt = corpus.high_court
 	bday = corpus.bday
 	bank = corpus.bank
 	meaning = corpus.meaning
@@ -74,10 +80,10 @@ def gspl(query):
 	minister= corpus.minister
 	key = query
 	#new change
-	msg= checkModules(query)
-	if not msg:
-		if len(query.split())==1 and query!="bday" and query!="birthday":
-			msg= "<meanings module>"
+#	msg= checkModules(query)
+#	if not msg:
+#		if len(query.split())==1 and query!="bday" and query!="birthday":
+#			msg= "<meanings module>"
 	
 	#key = query.split()
 	#key = list(set(key))
@@ -88,7 +94,33 @@ def gspl(query):
                 for i in range(0,len(bday)):
                         if " "+bday[i]+" " in " "+key+" ":
                                 msg = "<bday module>"
-				print msg
+                                flag = 1
+                                break
+
+
+                for i in range(0,len(hcourt)):
+                        if " "+hcourt[i]+" " in " "+key+" ":
+                                msg = "<highcourt module>"
+                                flag = 1
+                                break
+                for i in range(0,len(discography)):
+                        if " "+discography[i]+" " in " "+key+" ":
+                                msg = "<discography module>"
+                                flag = 1
+                                break
+
+
+                for i in range(0,len(flight)):
+                        if " "+flight[i]+" " in " "+key+" ":
+                                msg = "<flight module>"
+                                flag = 1
+                                break
+
+
+
+                for i in range(0,len(festiv)):
+                        if " "+festiv[i]+" " in " "+key+" ":
+                                msg = "<festival module>"
                                 flag = 1
                                 break
 
@@ -144,9 +176,7 @@ def gspl(query):
 				break
 		for i in range(0,len(m)):
 			if " "+m[i]+" " in " "+key+" ":
-				print "there"
 				msg= "<mineral status>"
-				print len(msg)
 				flag = 1
 				break
         	for i in range(0,len(r)):
@@ -192,19 +222,36 @@ def gspl(query):
 		if count>=2:
 			msg = "<currency module>"
 			flag = 1
-	#print msg
+	
+	#a= [msg]
+	#a.remove("")
+
+	if len(msg)==0:
+		msg= checkModules(query)
+        if not msg:
+                if len(query.split())==1 and query!="bday" and query!="birthday":
+                        msg= "<meanings module>"
+
+	#print [msg]
 	return msg
 
 
 def checkModules(query):
-	mdb = client['wikismart']
+	if len(query) >3:
+		mdb = client['wikismart']
 
-	result = mdb.infname.find({"name":{"$regex":query,"$options":"i"}})
-	result = list(result)
-	if list(result):
-		getType = list(result)[0]
-		msg= checkDicti[getType["type"]]
-		return msg
+		result = mdb.infname3.find({"name":query})
+		result = list(result)
+		#print result
+	#print result
+	#print result
+		if list(result):
+			getType = list(result)[0]
+			msg= checkDicti[getType["type"]]
+			return msg
+		else :
+			return ""
+
 	else:
 		return ""
 	
