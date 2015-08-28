@@ -12,9 +12,9 @@ def ret(artist_name,n):
 		result=[]
 		resl1=[]
 		if n==0:
-			resl=artists_final.find({"artist":{"$regex":str(artist_name),"$options":"i"},}).sort("release_date",-1).limit(27)
+			resl=artists_final.find({"artist":{"$regex":str(artist_name),"$options":"i"},}).sort("release_date",-1)
 		else:
-			resl=artists_final.find({"artist":{"$regex":str(artist_name),"$options":"i"},}).sort("release_date",-1).skip(n).limit(27)
+			resl=artists_final.find({"artist":{"$regex":str(artist_name),"$options":"i"},}).sort("release_date",-1).skip(n)
 		for item in resl:
 			item.pop("_id")
 			resl1.append(item)

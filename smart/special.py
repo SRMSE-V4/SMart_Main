@@ -10,20 +10,30 @@ def getanswer(msg,query,orig_query):
                 ans = festival(orig_query)
         elif msg == "<tennis module>":
                 ans = tennis(orig_query)
-       
+        elif msg == "<car module>":
+        	ans=car(orig_query)
+        elif msg == "<tank module>":
+        	ans=tank(orig_query)
+        elif msg == "<disease module>":
+        	ans=disease(orig_query)       
 	elif msg == "<flight module>":
                 ans = flight(orig_query)
         elif msg == "<recipe module>":
                 ans = recipe(orig_query)
 	elif msg=="<discography module>":
 		ans=discography(orig_query)
-
+	elif msg=="<electronic module>":
+		ans=electronic(orig_query)
         elif msg == "<wiki module>":
                 ans = wiki_module(orig_query)
 
         elif msg == "<bank module>":
                 ans = bank_module(orig_query)
 
+	#elif msg == "<restaurant module>":
+		#ans = restaurant(orig_query)
+		
+		
 	#elif msg == "<website module>":
 	#	ans = get_website(orig_query)
 
@@ -58,7 +68,6 @@ def getanswer(msg,query,orig_query):
         elif msg == "<bday module>":
                 ans= [{"bday":[]}]
 
-
         elif msg == "<highcourt module>":
                 ans = highcourt(orig_query)
 
@@ -75,6 +84,22 @@ def flight(query):
         import flightmain as fm
         ans=fm.main(query)
         return ans
+def tank(query):
+	import tankretmain as trm
+	ans=trm.main(query)
+	return ans
+def electronic(query):
+	import electronicmain as em
+	ans=em.main(query)
+	return ans
+def disease(query):
+	import diseasemain as dm
+	ans=dm.main(query)
+	return ans
+def car(query):
+	import carretmain as cm
+	ans=cm.main(query)
+	return ans
 def tennis(query):
 	import tennismain as tm
 	ans=tm.main(query)
@@ -93,7 +118,12 @@ def highcourt(query):
 	ans = hc.main(query)
 	return ans
 
-
+#def restaurant(query):
+#	import restaurantret as rret
+#	ans = rret.resmain(query)
+#	return ans
+	
+	
 #def get_website(query):
 #	import toptest as tst
 #	ans = tst.main(query)
@@ -131,7 +161,6 @@ def cric_info(query):
                 return ans
         else:
                 return [{}]
-
 
 
 def minister(query):
@@ -191,11 +220,17 @@ def differences(query):
 
 def location(query):
         ans="<NA>"
-        
         import locentric as location
+        import restaurantret as restaur
         ans = location.main(query)
-	if ans :
-           ans=[{"location":ans}]
+        res_result=restaur.resmain(query)
+	if ans or res_result:
+           
+           #joining restaurant results of zomato and ixigo
+           if "restaurants" in query or "restaurant" in query:
+           	ans=[{"location":{"ixigo":ans,"zomato":res_result}}]
+           else:
+           	ans=[{"location":ans}]
 	#print ans
 	return ans
 

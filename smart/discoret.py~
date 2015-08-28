@@ -18,7 +18,7 @@ def ret(artist_name,n):
 		for item in resl:
 			item.pop("_id")
 			resl1.append(item)
-		print len(resl1)
+		#print len(resl1)
 		if len(resl1)!=0:
 			result=resl1
 			result={"discography":result}

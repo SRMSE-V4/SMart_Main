@@ -56,8 +56,14 @@ def gspl(query):
 	msg = ""
 	# to delete
 	discography=corpus.discography
+	
 	recipe=corpus.recipe
 	flight = corpus.flight
+	car=corpus.car
+	#restaurant=corpus.restaurant
+	disease=corpus.disease
+	tank=corpus.tank
+	electronic=corpus.electronic
 	tennis=corpus.tennis
 	festiv = corpus.festiv
 	hcourt = corpus.high_court
@@ -104,15 +110,35 @@ def gspl(query):
                                 msg = "<highcourt module>"
                                 flag = 1
                                 break
+                for i in range(0,len(tank)):
+                	if " "+tank[i]+" " in " "+key+" ":
+                		msg="<tank module>"
+                		flag=1
+                		break
+                for i in range(0,len(electronic)):
+                	if " "+electronic[i]+" " in " "+key+" ":
+                		msg="<electronic module>"
+                		flag=1
+                		break
                 for i in range(0,len(discography)):
                         if " "+discography[i]+" " in " "+key+" ":
                                 msg = "<discography module>"
                                 flag = 1
                                 break
+                for i in range(0,len(car)):
+                	if " "+car[i]+" " in " "+key+" ":
+                		msg= "<car module>"
+                		flag=1
+                		break
 		for i in range(0,len(tennis)):
 			if " "+tennis[i]+" " in " "+key+" ":
 				msg = "<tennis module>"
 				flag = 1
+				break
+		for i in range(0,len(disease)):
+			if " "+disease[i]+" " in " "+key+" ":
+				msg="<disease module>"
+				flag=1
 				break
                 for i in range(0,len(flight)):
                         if " "+flight[i]+" " in " "+key+" ":
@@ -124,8 +150,6 @@ def gspl(query):
                                 msg = "<recipe module>"
                                 flag = 1
                                 break
-
-
 
                 for i in range(0,len(festiv)):
                         if " "+festiv[i]+" " in " "+key+" ":
@@ -224,6 +248,12 @@ def gspl(query):
                         	msg = "<theatre module>"
                         	flag = 1
                        		break
+                       		
+                '''for i in range(0,len(restaurant)):
+			if " "+restaurant[i]+" " in " "+key+" ":
+				msg= "<restaurant module>"
+				flag = 1
+				break'''
 
 		for i in range(0,len(key)):
 			if key[i] in terms:

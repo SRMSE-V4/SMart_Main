@@ -79,7 +79,7 @@ def retrank(rank,query):
 			return [{}]
 		for r in res:
 			r.pop("_id")
-		dic=[{"tennis":res}]
+		dic=[{"tennis":[{"main-ans":res[0]}]}]
 		return dic
 	except:
 		return [{}]

@@ -14,7 +14,7 @@ def locentric(longitude, latitude, database):
 	#print collection
 	#print database
 	#print float(longitude)
-	results = collection.find({'loc':{'$near':{'$geometry':{'type':"Point",'coordinates':[float(longitude.replace(";","")),float(latitude.replace(";",""))]}}}}).limit(4)
+	results = collection.find({'loc':{'$near':{'$geometry':{'type':"Point",'coordinates':[float(longitude.replace(";","")),float(latitude.replace(";",""))]}}}},{'_id':False}).limit(4)
 	#print list(results)
 	#ans = results
 

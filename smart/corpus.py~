@@ -1,7 +1,13 @@
+car=["cars","car"]
+tank=["tanks","tank"]
+electronic=["cameras","laptops","notebooks","netbooks","tvs","televisions","camera","laptop","notebook","netbook","tv","television"]
+disease=["diseases","disease","symptoms","symptom"]
+tennis=["tennis"]
 discography=["discography","albums","album"]
-recipe=["recipes","recipe"]
+recipe=["recipes","recipe","cook"]
 flight = ["flights","flight"]
 bday=["birthday","bday"]
+#restaurant=["restaurants","restaurant"]
 disc = ["a","an","the","of","is","was","in","during","got","are","did","took","belongs","to","has","at","on","and"
         ,"or","me","celebrated","celebrate","regarding","into","came","action","existence","exist","rule","legal","become"
 	,"became","does","political","records","any","home","located","total","how","much","with","my","based","as","being"
@@ -30,7 +36,7 @@ s = ["stock","stocks"]
 e = ["exam","examination","exams","examinations","test","tests"]
 m = ["gold","silver","oil","petrol"]
 r = ["movie","director","cast","writer","producer","story","release","genre","rating","music","cinematographer","editor","review"]
-loc = ["near","around","close","closest","nearest"]
+loc = ["near","around","close","closest","nearest","restaurant","restaurants"]
 mov = ["movie","director","cast","writer","producer","story","release","genre","rating","music","cinematographer","editor","review"]
 sp = ["score","cricket"]
 h = ["highway","highways"]
