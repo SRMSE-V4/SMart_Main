@@ -5,6 +5,7 @@ authenticate("192.168.101.5:7474","neo4j","#srmseONneo4j1")
 graph=Graph("http://192.168.101.5:7474/db/data")
 
 def reg_search(query):
+	l=[]
 	query=query.replace(" of "," ")
 	ans=[]
 	ans1=[]
@@ -20,8 +21,19 @@ def reg_search(query):
 			rquery=rquery.replace(cc,"")
 			clwrd=cc
 	query=query.split()
+	check="name"
+	c=0
+	if "chief" in query:
+		query.remove("chief")
+		rquery=rquery.replace("chief","").strip()
+		check="image"
+		c=1
+	elif "college" in query or "university" in query:
+		check="address"
+	elif "high court" in query:
+		check="chief_justice"
 	rquery=rquery.split()
-	print rquery
+	#print rquery
 	#neo_query="match (n) where n.name=~ '(?i)%s' return n"%(query)	
 	#res=graph.cypher.execute(neo_query)
 	for i in range(0,len(rquery)):
@@ -61,7 +73,7 @@ def reg_search(query):
 	ans=temp'''
 	#print ans
 	#ans.append(caten)
-	print query
+	#print query
 	for i in ans:
 		for j in query:
 			if str(j) != str(i["name"]).lower():
@@ -74,12 +86,25 @@ def reg_search(query):
 						ans.append(res[0][0])
 						r_res=graph.cypher.execute(r_query)
 						#print r_res[0][0].properties
-						properties=str(r_res[0][0].properties).encode("utf-8")
+						properties=r_res[0][0].properties
 				except:
 					pass	
 	#ans=list(set(ans))
-	print ans,properties
+	for i in ans:
+		if i.properties.has_key(check):
+			if c==1:
+				if i.properties[check].startswith("upload"):
+					d1=i.properties
+					d1.update(properties)
+					l.append(d1)
+			else:	
+				d1=i.properties
+				d1.update(properties)
+				l.append(d1)
+#	d1.update(d2)
+#	print d1
 	#print len(ans)
+	print l
 				
 query=raw_input("Query? ")
 orig_query=query
@@ -94,25 +119,41 @@ if len(res)!=0:
 	result["properties"]=nnode.properties
 	rquery="match (n)-[r]->(m) where n.name=~ '(?i)"+nnode["name"]+"' return r"
 	res1=graph.cypher.execute(rquery)
+	#print res1
 	for j in res1:
 		rtype=j[0].type
+		#print rtype
 		if (result.has_key(rtype)==False):
-			nquery="match (n)-[r]->(m) where n.name=~ '(?i)"+nnode["name"]+"' and type(r)=~ '(?i)"+rtype+"' return m,r"
+			nquery="match (n)-[r]->(m) where n.name=~ '(?i)"+nnode["name"]+"' and type(r)= '"+rtype+"' return m,r"
 			res2=graph.cypher.execute(nquery)
 			#nquery1="match (n)-[r]->(m) where n.name=~ '(?i)"+nnode["name"]+"' and type(r)=~ '(?i)"+rtype+"' return r"
 			#res3=graph.cypher.execute(nquery1)
+			#print nquery,res2
 			if len(res2)>1:
 				ilist=[]
 				for k in res2:
 					idata=str((k[0]["name"]))
-					iprop=filter(lambda x:ord(x)>31 and ord(x)<128,str((k[1].properties)))
-					ilist.append(str(idata+"---"+iprop))
+					iprop=filter(lambda x:ord(x)>31 and ord(x)<128,str(k[1].properties))
+					if len(iprop)!=0:
+						u=[]
+						u.append(str(idata))
+						u.append(k[1].properties)
+						ilist.append(u)
+					else:
+						ilist.append([str(idata)])
 				
 					
-				result[rtype]=str(ilist)
+				result[rtype]=ilist
 			else:
-				result[rtype]=str(str(res2[0][0]["name"])+"---"+str(res2[0][1].properties)) 
-			#res2=list(set(res2))
+				temp=res2[0][1].properties
+				if len(temp)!=0:
+					l=[]
+					l.append(str(res2[0][0]["name"]))
+					l.append(res2[0][1].properties)
+					result[rtype]=l 
+				else:
+					result[rtype]=[str(res2[0][0]["name"])]			
+				#res2=list(set(res2))
 
 	#print res2
 			#for k in res3:
