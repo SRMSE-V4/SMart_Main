@@ -1,8 +1,8 @@
 #MATCH (n:Haryana)-[r]->(m) where type(r)=~ '.*minister.*' return m
 
 from py2neo import Graph,authenticate,Node,Relationship
-authenticate("192.168.101.5:7474","neo4j","#srmseONneo4j1")
-graph=Graph("http://192.168.101.5:7474/db/data")
+authenticate("ip","neo4j","password")
+graph=Graph()
 
 def reg_search(query):
 	l=[]
