@@ -1,6 +1,7 @@
 #MATCH (n:Haryana)-[r]->(m) where type(r)=~ '.*minister.*' return m
 import json
 from py2neo import Graph,authenticate,Node,Relationship
+<<<<<<< HEAD
 authenticate("ip:port","username","password")
 graph=Graph("db path")
 def findabbrword(query):
@@ -8,6 +9,11 @@ def findabbrword(query):
 	n=graph.cypher.execute("MATCH (n:`"+query+"`)-[r:`abbrevation`]->(m) RETURN m.name")
 	n=n[0][0]
 	return n
+=======
+authenticate("ip","neo4j","password")
+graph=Graph()
+
+>>>>>>> 2e867e4eb5908876ac4fe7422f7197701234a47b
 def reg_search(query):
 	l=[]
 	query=query.replace(" of "," ")
