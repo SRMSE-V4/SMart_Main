@@ -1,9 +1,13 @@
 #MATCH (n:Haryana)-[r]->(m) where type(r)=~ '.*minister.*' return m
-
+import json
 from py2neo import Graph,authenticate,Node,Relationship
-authenticate("192.168.101.5:7474","neo4j","#srmseONneo4j1")
-graph=Graph("http://192.168.101.5:7474/db/data")
-
+authenticate("ip:port","username","password")
+graph=Graph("db path")
+def findabbrword(query):
+	query=query.strip().upper()
+	n=graph.cypher.execute("MATCH (n:`"+query+"`)-[r:`abbrevation`]->(m) RETURN m.name")
+	n=n[0][0]
+	return n
 def reg_search(query):
 	l=[]
 	query=query.replace(" of "," ")
@@ -104,6 +108,7 @@ def reg_search(query):
 #	d1.update(d2)
 #	print d1
 	#print len(ans)
+	l=json.dumps(l)
 	print l
 				
 query=raw_input("Query? ")
@@ -111,6 +116,12 @@ orig_query=query
 result={}
 #print query
 query=query.replace(" of "," ").replace("highway","").replace("river","").replace("university","").strip()
+if len(query)==2 or len(query)==3:
+	try:
+		tem=query
+		query=findabbrword(query)
+	except:
+		query=tem
 neo_query="match (n) where n.name=~ '(?i)%s' return n"%(query)	
 res=graph.cypher.execute(neo_query)
 if len(res)!=0:	
@@ -159,6 +170,7 @@ if len(res)!=0:
 			#for k in res3:
 			#		iprop=str((k[0].properties)).encode("utf-8")
 			#		print iprop
+	result=json.dumps([result])
 	print result
 		
 else:
